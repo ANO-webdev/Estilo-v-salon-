@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Estilo V — Especialistas en Alisados Premium</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ========================================
+       CSS VARIABLES
+    ======================================== */
+    :root {
+      --gold:       #C9A96E;
+      --gold-light: #E8D5B0;
+      --gold-dark:  #A07840;
+      --black:      #0A0A0A;
+      --dark:       #111111;
+      --dark2:      #1A1A1A;
+      --dark3:      #222222;
+      --mid:        #2E2E2E;
+      --muted:      #888888;
+      --light:      #F5F1EB;
+      --white:      #FFFFFF;
+      --whatsapp:   #25D366;
+
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body:    'Jost', sans-serif;
+
+      --radius: 2px;
+      --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* ========================================
+       RESET & BASE
+    ======================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      background-color: var(--black);
+      color: var(--light);
+      font-family: var(--font-body);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    a { color: inherit; text-decoration: none; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+    /* ========================================
+       UTILITY
+    ======================================== */
+    .container {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    @media (max-width: 768px) {
+      #navbar { padding: 20px 24px; }
+      #navbar.scrolled { padding: 14px 24px; }
+      .container { padding: 0 24px; }
+    }
+
+    .gold { color: var(--gold); }
+
+    .section-label {
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      padding: 16px 36px;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      background: transparent;
+      cursor: pointer;
+      transition: background var(--transition), color var(--transition);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition);
+      z-index: -1;
+    }
+
+    .btn:hover::before { transform: scaleX(1); }
+    .btn:hover { color: var(--black); }
+
+    .btn-solid {
+      background: var(--gold);
+      color: var(--black);
+    }
+    .btn-solid::before { background: var(--gold-dark); }
+    .btn-solid:hover { color: var(--white); }
+
+    /* Animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s var(--transition) forwards;
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ========================================
+       NAVIGATION
+    ======================================== */
+    #navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 28px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all var(--transition);
+    }
+
+    #navbar.scrolled {
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 18px 48px;
+      border-bottom: 1px solid rgba(201, 169, 110, 0.1);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      color: var(--white);
+      white-space: nowrap;
+    }
+
+    .nav-logo span { color: var(--gold); }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    @media (max-width: 1024px) {
+      .nav-links { display: none; }
+    }
+
+    .nav-links a {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(245, 241, 235, 0.7);
+      transition: color var(--transition);
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ========================================
+       HERO SECTION
+    ======================================== */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding-top: 100px;
+      background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&q=80&w=2000') center/cover no-repeat;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 8vw, 90px);
+      line-height: 1.1;
+      margin-bottom: 24px;
+      color: var(--white);
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .hero-desc {
+      font-size: 16px;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 40px;
+      max-width: 500px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 480px) {
+      .hero-ctas { flex-direction: column; }
+      .hero-ctas .btn { text-align: center; justify-content: center; }
+    }
+
+    /* ========================================
+       SERVICES SECTION
+    ======================================== */
+    #services {
+      padding: 120px 0;
+      background: var(--black);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 5vw, 56px);
+      color: var(--white);
+    }
+
+    .category-title {
+      font-family: var(--font-display);
+      font-size: 32px;
+      color: var(--gold);
+      margin: 60px 0 30px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .category-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(201, 169, 110, 0.2);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .service-card {
+      background: var(--dark);
+      padding: 40px;
+      border: 1px solid rgba(201, 169, 110, 0.1);
+      transition: all var(--transition);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .service-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-5px);
+      background: var(--dark2);
+    }
+
+    .service-name {
+      font-family: var(--font-display);
+      font-size: 24px;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .service-duration {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .price-box {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-top: auto;
+    }
+
+    .old-price {
+      text-decoration: line-through;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .new-price {
+      font-family: var(--font-display);
+      font-size: 28px;
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    .promo-badge {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: var(--gold);
+      color: var(--black);
+      font-size: 10px;
+      font-weight: 600;
+      padding: 4px 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .promo-note {
+      text-align: center;
+      margin-top: 60px;
+      color: var(--muted);
+      font-size: 14px;
+      font-style: italic;
+    }
+
+    /* ========================================
+       WHY CHOOSE US
+    ======================================== */
+    #why {
+      padding: 120px 0;
+      background: var(--dark);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+
+    @media (max-width: 768px) {
+      .features-grid { grid-template-columns: 1fr; }
+    }
+
+    .feature-item {
+      text-align: center;
+      padding: 40px 20px;
+      border: 1px solid transparent;
+      transition: border var(--transition);
+    }
+
+    .feature-item:hover {
+      border-color: rgba(201, 169, 110, 0.1);
+    }
+
+    .feature-icon {
+      font-size: 40px;
+      color: var(--gold);
+      margin-bottom: 24px;
+      display: block;
+    }
+
+    .feature-title {
+      font-family: var(--font-display);
+      font-size: 24px;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .feature-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    /* ========================================
+       CONTACT / BOOKING
+    ======================================== */
+    #contact {
+      padding: 120px 0;
+      background: var(--black);
+      text-align: center;
+    }
+
+    .contact-box {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .location-placeholder {
+      margin-top: 40px;
+      padding: 40px;
+      background: var(--dark);
+      border: 1px solid rgba(201, 169, 110, 0.1);
+      color: var(--muted);
+    }
+
+    /* ========================================
+       WHATSAPP FLOATING
+    ======================================== */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      width: 60px;
+      height: 60px;
+      background: var(--whatsapp);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      z-index: 1000;
+      transition: transform 0.3s ease;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+    }
+
+    .whatsapp-float svg {
+      width: 32px;
+      height: 32px;
+      fill: currentColor;
+    }
+
+    /* ========================================
+       FOOTER
+    ======================================== */
+    footer {
+      padding: 60px 0;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      text-align: center;
+      background: var(--black);
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 24px;
+      color: var(--white);
+      margin-bottom: 20px;
+      letter-spacing: 0.1em;
+    }
+
+    .copyright {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo">ESTILO <span>V</span></a>
+    <ul class="nav-links">
+      <li><a href="#hero">Inicio</a></li>
+      <li><a href="#services">Servicios</a></li>
+      <li><a href="#why">Nosotros</a></li>
+      <li><a href="#contact">Contacto</a></li>
+    </ul>
+    <a href="https://wa.me/51995710557" target="_blank" class="btn" style="padding: 10px 24px;"><span>Agendar</span></a>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-content fade-in">
+        <span class="section-label">Premium Hair Salon — Chiclayo, Perú</span>
+        <h1 class="hero-title">El arte del <em>alisado</em> perfecto.</h1>
+        <p class="hero-desc">En Estilo V transformamos tu cabello con tratamientos de lujo y tecnología de vanguardia. Resultados impecables que realzan tu elegancia natural.</p>
+        <div class="hero-ctas">
+          <a href="#services" class="btn btn-solid"><span>Ver Servicios</span></a>
+          <a href="https://wa.me/51995710557" target="_blank" class="btn"><span>WhatsApp</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Nuestros Tratamientos</span>
+        <h2 class="section-title">Servicios de <em>Alisado</em></h2>
+      </div>
+
+      <!-- Category 1 -->
+      <h3 class="category-title reveal">Alisados Permanentes</h3>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <span class="service-duration">10 Meses – 1 Año</span>
+          <h4 class="service-name">Alisado Celebridad</h4>
+          <p class="feature-desc" style="margin-bottom: 20px;">No necesita secadora ni plancha. El estándar de oro en alisados.</p>
+          <div class="price-box">
+            <span class="old-price">S/390</span>
+            <span class="new-price">desde S/220</span>
+          </div>
+        </div>
+
+        <div class="service-card reveal">
+          <span class="service-duration">5 – 8 Meses</span>
+          <h4 class="service-name">Alisado Dual</h4>
+          <p class="feature-desc" style="margin-bottom: 20px;">Combinación perfecta para un acabado natural y manejable.</p>
+          <div class="price-box">
+            <span class="old-price">S/350</span>
+            <span class="new-price">desde S/289</span>
+          </div>
+        </div>
+
+        <div class="service-card reveal">
+          <span class="service-duration">1 Año</span>
+          <h4 class="service-name">Americano</h4>
+          <p class="feature-desc" style="margin-bottom: 20px;">Duración extrema y brillo intenso para cabellos exigentes.</p>
+          <div class="price-box">
+            <span class="old-price">S/400</span>
+            <span class="new-price">S/340</span>
+          </div>
+        </div>
+
+        <div class="service-card reveal">
+          <span class="service-duration">1 Año</span>
+          <h4 class="service-name">Trial Duración</h4>
+          <p class="feature-desc" style="margin-bottom: 20px;">Fórmula avanzada para un liso total por más tiempo.</p>
+          <div class="price-box">
+            <span class="old-price">S/450</span>
+            <span class="new-price">desde S/290</span>
+          </div>
+        </div>
+
+        <div class="service-card reveal">
+          <span class="service-duration">5 – 7 Meses</span>
+          <h4 class="service-name">Bioplastia</h4>
+          <p class="feature-desc" style="margin-bottom: 20px;">Restauración capilar profunda mientras alisas.</p>
+          <div class="price-box">
+            <span class="old-price">S/280</span>
+            <span class="new-price">S/220</span>
+          </div>
+        </div>
+
+        <div class="service-card reveal">
+          <span class="service-duration">1 Año</span>
+          <h4 class="service-name">Japonés</h4>
+          <p class="feature-desc" style="margin-bottom: 20px;">El clásico definitivo para un liso tabla impecable.</p>
+          <div class="price-box">
+            <span class="old-price">S/500</span>
+            <span class="new-price">desde S/350</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category 2 -->
+      <h3 class="category-title reveal">Alisados Thermo Activos <span style="font-size: 14px; color: var(--muted); margin-left: 10px;">— Promos del Mes</span></h3>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="promo-badge">Promo</div>
+          <span class="service-duration">3 – 4 Meses</span>
+          <h4 class="service-name">Brasilero</h4>
+          <p class="feature-desc" style="margin-bottom: 20px;">Brillo y suavidad con tecnología termo-activa.</p>
+          <div class="price-box">
+            <span class="old-price">S/250</span>
+            <span class="new-price">desde S/159</span>
+          </div>
+        </div>
+
+        <div class="service-card reveal">
+          <div class="promo-badge">Orgánico</div>
+          <span class="service-duration">4 – 5 Meses</span>
+          <h4 class="service-name">Orgánico 🍀</h4>
+          <p class="feature-desc" style="margin-bottom: 20px;">0 olores tóxicos. Respetuoso con tu salud y tu cabello.</p>
+          <div class="price-box">
+            <span class="old-price">S/280</span>
+            <span class="new-price">desde S/189.90</span>
+          </div>
+        </div>
+
+        <div class="service-card reveal">
+          <div class="promo-badge">Promo</div>
+          <span class="service-duration">5 – 6 Meses</span>
+          <h4 class="service-name">Marroquí</h4>
+          <p class="feature-desc" style="margin-bottom: 20px;">Ideal para controlar el volumen y eliminar el frizz.</p>
+          <div class="price-box">
+            <span class="old-price">S/250</span>
+            <span class="new-price">desde S/200</span>
+          </div>
+        </div>
+
+        <div class="service-card reveal">
+          <div class="promo-badge">100% Natural</div>
+          <span class="service-duration">5 – 6 Meses</span>
+          <h4 class="service-name">Bioplastia Fhotolaser</h4>
+          <p class="feature-desc" style="margin-bottom: 20px;">Tecnología láser para un sellado perfecto y natural.</p>
+          <div class="price-box">
+            <span class="old-price">S/290</span>
+            <span class="new-price">desde S/220</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="promo-note reveal">* Promociones válidas para cabello hasta la altura del hombro.</p>
+    </div>
+  </section>
+
+  <!-- Why Estilo V -->
+  <section id="why">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Excelencia</span>
+        <h2 class="section-title">¿Por qué <em>Estilo V</em>?</h2>
+      </div>
+      <div class="features-grid">
+        <div class="feature-item reveal">
+          <span class="feature-icon">✨</span>
+          <h4 class="feature-title">Especialistas en Alisados</h4>
+          <p class="feature-desc">No somos un salón genérico. Nos enfocamos exclusivamente en perfeccionar técnicas de alisado para cada tipo de cabello.</p>
+        </div>
+        <div class="feature-item reveal" style="transition-delay: 0.1s;">
+          <span class="feature-icon">⏳</span>
+          <h4 class="feature-title">Resultados Duraderos</h4>
+          <p class="feature-desc">Utilizamos productos de alta gama que garantizan un liso impecable por hasta un año, facilitando tu rutina diaria.</p>
+        </div>
+        <div class="feature-item reveal" style="transition-delay: 0.2s;">
+          <span class="feature-icon">💎</span>
+          <h4 class="feature-title">Experiencia Premium</h4>
+          <p class="feature-desc">Un ambiente diseñado para tu comodidad, donde el lujo y la atención personalizada son nuestra prioridad absoluta.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-box reveal">
+        <span class="section-label">Reserva tu Cita</span>
+        <h2 class="section-title" style="margin-bottom: 30px;">¿Lista para un <em>cambio</em>?</h2>
+        <p class="feature-desc" style="margin-bottom: 40px;">Contáctanos vía WhatsApp para una asesoría personalizada y reserva tu espacio en nuestro salón.</p>
+        <a href="https://wa.me/51995710557" target="_blank" class="btn btn-solid" style="padding: 20px 50px;"><span>Agendar por WhatsApp</span></a>
+        
+        <div class="location-placeholder">
+          <p>📍 Chiclayo, Perú</p>
+          <p style="font-size: 13px; margin-top: 8px; color: var(--gold-light);">Lunes a Sábado · Horario de atención con cita previa</p>
+          <p style="font-size: 12px; margin-top: 8px;">Escríbenos para la dirección exacta y disponibilidad</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-logo">ESTILO V</div>
+      <div style="display:flex; justify-content:center; gap:32px; margin-bottom:20px;">
+        <a href="https://wa.me/51995710557" target="_blank" style="font-size:12px; color:var(--gold); letter-spacing:0.15em; text-transform:uppercase;">WhatsApp</a>
+        <a href="https://www.instagram.com/estilovchiclayo?igsh=MW96eWY4bG1pbTV2ZQ==" target="_blank" style="font-size:12px; color:var(--gold); letter-spacing:0.15em; text-transform:uppercase;">Instagram</a>
+      </div>
+      <p class="copyright">&copy; 2026 Estilo V. Todos los derechos reservados. Luxury Hair Care Chiclayo.</p>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/51995710557" class="whatsapp-float" target="_blank" title="Contáctanos por WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="white">
+      <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-23.1-115-65.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+    </svg>
+  </a>
+
+  <script>
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal on scroll
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealOnScroll = () => {
+      revealElements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.85) {
+          el.classList.add('visible');
+        }
+      });
+    };
+
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+  </script>
+
+</body>
+</html>
